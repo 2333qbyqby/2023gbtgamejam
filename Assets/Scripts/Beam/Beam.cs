@@ -10,5 +10,6 @@ public class Beam : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         material.color = currentBeamColor;
+        
     }
 }
