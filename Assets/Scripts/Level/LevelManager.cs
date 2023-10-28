@@ -1,23 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Audio;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [Header("¹Ø¿¨ÅäÖÃĞÅÏ¢")]
+    [Header("å…³å¡é…ç½®ä¿¡æ¯")]
     public int maxColorNum;
-    public Color targetColor;//Ä¿±êÑÕÉ«
-    [Header("¹Ø¿¨µ±Ç°ĞÅÏ¢")]
+    public Color targetColor;//ç›®æ ‡é¢œè‰²
+    [Header("å…³å¡å½“å‰ä¿¡æ¯")]
     public int curlevelIndex;
     public int curColorNum;
-    public int nextLevelIndex;//ÏÂÒ»¸öÒªÌø×ªµÄ³¡¾°id
+    public int nextLevelIndex;//ä¸‹ä¸€ä¸ªè¦è·³è½¬çš„åœºæ™¯id
     public static LevelManager instance { get; private set; }
     private void Awake()
     {
         instance = this;
     }
-    public void CheckifPassed()//¼ì²â³É¹¦
+
+    private void Start()
+    {
+        Debug.Log("BGM ON");
+        AudioManager.instance.PlayBgm();
+    }
+
+    public void CheckifPassed()//æ£€æµ‹æˆåŠŸ
     {
         if (ColorController.instance.currentColor == targetColor)
         {
@@ -34,16 +43,18 @@ public class LevelManager : MonoBehaviour
     IEnumerator FailCoroutine()
     {
         LevelUI.instance.Failed();
-        yield return new WaitForSeconds(0.5f);
+        AudioManager.instance.StopBgm();//BGMåœæ­¢
+        AudioManager.instance.PlaySound(3);//æ’­æ”¾å¤±è´¥éŸ³æ•ˆ
+        yield return new WaitForSeconds(2f);
         StartCoroutine(SceneLoader.Instance.LoadSceneAsync(curlevelIndex));
     }
     IEnumerator PassCoroutine()
     {
         LevelUI.instance.Pass();
-        //ÔİÍ£
-
-        yield return new WaitForSeconds(0.5f);
-
+        AudioManager.instance.StopBgm();//BGMåœæ­¢
+        AudioManager.instance.PlaySound(1);//æ’­æ”¾é€šå…³éŸ³æ•ˆ
+        //æš‚åœ
+        yield return new WaitForSeconds(2f);
         StartCoroutine(SceneLoader.Instance.LoadSceneAsync(nextLevelIndex));
     }
 }

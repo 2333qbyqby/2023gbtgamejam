@@ -12,7 +12,14 @@ public class SceneLoader : MonoBehaviour
     private const string TARGETSCENE = "Scene2";
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
     private void Start()
     {
