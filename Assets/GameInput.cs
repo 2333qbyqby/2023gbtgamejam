@@ -14,7 +14,7 @@ public class GameInput : MonoBehaviour
     [Header("esc事件")]
     public UnityEvent escEvent;
 
-    private Lazerabsorber inputSystem;//从这个输入系统中获取输入的值，以及为按下某一按钮注册事件
+    public Lazerabsorber inputSystem;//从这个输入系统中获取输入的值，以及为按下某一按钮注册事件
 
 
 

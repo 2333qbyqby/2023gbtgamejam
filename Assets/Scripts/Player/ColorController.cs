@@ -38,7 +38,6 @@ public class ColorController : MonoBehaviour
             LevelUI.instance.SetRemainText(maxColorNum-colors.Count);//设置剩余吸收数
             //判断是否通关
             LevelManager.instance.CheckifPassed();
-            LevelManager.instance.CheckifFailed();
         }
     }
 

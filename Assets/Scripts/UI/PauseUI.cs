@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -31,6 +32,7 @@ namespace UI
         public void BackToMenu()
         {
             PauseOrRestart();
+            AudioManager.instance.StopBgm();//停止bgm
             StartCoroutine(SceneLoader.Instance.LoadSceneAsync(0));
         }
     }

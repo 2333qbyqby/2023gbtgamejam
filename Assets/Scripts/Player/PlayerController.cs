@@ -20,6 +20,17 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+
+    private void Update()
+    {
+        if(rb.velocity.magnitude<=0.1)
+        {
+            GameInput.Instance.EnablePlayInput();
+            
+            //this.transform.position -= new Vector3(LastInputDir.x * 0.2f, 0, LastInputDir.y * 0.2f);
+        }
+        //Debug.Log(rb.velocity);
+    }
     /// <summary>
     /// 移动函数
     /// </summary>
@@ -35,7 +46,7 @@ public class PlayerController : MonoBehaviour
        {
            LastInputDir =new Vector2(0,inputDir.y);//记录上一次的移动方向
        }
-        
+       
         Vector3 realDir=new Vector3(LastInputDir.x,0,LastInputDir.y);
         this.rb.AddForce(realDir*speed*Time.fixedDeltaTime*10);
         //Debug.Log(realDir);
@@ -58,14 +69,16 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == 6)//检测墙壁
         {
             rb.velocity = Vector3.zero;
-
-            this.transform.position -= new Vector3(LastInputDir.x*0.1f, 0, LastInputDir.y*0.1f);
+            
+            //
+            //Debug.Log("success");
             LastInputDir = Vector2.zero;
-
+            //Debug.Log(collision.gameObject.transform.position.x - this.gameObject.transform.position.x);
+            //Debug.Log(collision.gameObject.transform.position.y - this.gameObject.transform.position.y);
             AudioManager.instance.PlaySound(2);//触发音效
             shakeEvent?.Invoke();//调用震动事件
             GameInput.Instance.EnablePlayInput();
         }
     }
-    
+
 }

@@ -28,9 +28,20 @@ public class LevelManager : MonoBehaviour
 
     public void CheckifPassed()//检测成功
     {
-        if (ColorController.instance.currentColor == targetColor)
+        Color color = ColorController.instance.currentColor;
+        float curR=color.r*255;
+        float curG=color.g*255;
+        float curB=color.b*255;
+        float tarR=targetColor.r*255;
+        float tarG=targetColor.g*255;
+        float tarB=targetColor.b*255;
+        if (Mathf.Abs(tarR-curR)<=1&& Mathf.Abs(tarG-curG)<=1&& Mathf.Abs(tarB-curB)<=1)
         {
             StartCoroutine(PassCoroutine());
+        }
+        else
+        {
+            CheckifFailed();
         }
     }
     public void CheckifFailed()
