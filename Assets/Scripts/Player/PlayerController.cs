@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,7 +50,6 @@ public class PlayerController : MonoBehaviour
     {
         
         Move();
-        
     }
 
 
@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
             this.transform.position -= new Vector3(LastInputDir.x*0.1f, 0, LastInputDir.y*0.1f);
             LastInputDir = Vector2.zero;
 
+            AudioManager.instance.PlaySound(2);//触发音效
             shakeEvent?.Invoke();//调用震动事件
             GameInput.Instance.EnablePlayInput();
         }

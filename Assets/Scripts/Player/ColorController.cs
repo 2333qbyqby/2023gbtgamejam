@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 
 public class ColorController : MonoBehaviour
@@ -32,6 +33,7 @@ public class ColorController : MonoBehaviour
             //Debug.Log(colors.Count);
             currentColor=BlendColor(currentColor,addedColor);
             playerVisual.GetComponent<Renderer>().material.color=currentColor;
+            AudioManager.instance.PlaySound(0);//触发吸收音效
             LevelUI.instance.SetCurRGB();
             LevelUI.instance.SetRemainText(maxColorNum-colors.Count);//设置剩余吸收数
             //判断是否通关

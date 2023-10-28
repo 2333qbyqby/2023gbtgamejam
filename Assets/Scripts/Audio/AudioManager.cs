@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 //使用单例模式开发，继承单例父类，使其在场景切换时不销毁
 //同时包括音量设置功能和播放音效功能
@@ -39,7 +40,8 @@ namespace Audio
         }
         
         [SerializeField] private List<AudioSource> sfxs;
-       
+        [SerializeField] private AudioSource bgm;
+
         /// <summary>
         /// 播放音效
         /// </summary>
@@ -62,6 +64,19 @@ namespace Audio
         {
             if (id < sfxs.Count){sfxs[id].pitch = Random.Range(k_PitchMin, k_PitchMax);}
             PlaySound(id);
+        }
+
+        /// <summary>
+        /// 静音
+        /// </summary>
+        public void StopBgm()
+        {
+            bgm.Stop();
+        }
+
+        public void PlayBgm()
+        {
+            bgm.Play();
         }
     }
 }
