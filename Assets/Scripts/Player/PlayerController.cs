@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     [Header("震动事件")]
     public UnityEvent shakeEvent;
+    [Header("粒子效果")]
+    public ParticleSystem hitParticle;
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -69,16 +71,25 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == 6)//检测墙壁
         {
             rb.velocity = Vector3.zero;
-            
-            //
-            //Debug.Log("success");
             LastInputDir = Vector2.zero;
-            //Debug.Log(collision.gameObject.transform.position.x - this.gameObject.transform.position.x);
-            //Debug.Log(collision.gameObject.transform.position.y - this.gameObject.transform.position.y);
             AudioManager.instance.PlaySound(2);//触发音效
             shakeEvent?.Invoke();//调用震动事件
+            PlayParticalEffect();            
             GameInput.Instance.EnablePlayInput();
         }
     }
-
+    private void PlayParticalEffect()
+    {
+        var main = hitParticle.main;
+        Color color = ColorController.instance.currentColor;
+        if(color ==Color.black)
+        {
+            main.startColor = Color.white;
+        }
+        else
+        {
+            main.startColor = new Color(color.r, color.g, color.b, 1);
+        }
+        hitParticle.Play();
+    }
 }
