@@ -1,13 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
     public Animator animator;
+    public Image image;
     private const string APPEAR = "Appear";
     private const string TARGETSCENE = "Scene2";
     private void Awake()
@@ -56,6 +56,11 @@ public class SceneLoader : MonoBehaviour
 
     private void AsyncLoad_completed(AsyncOperation obj)
     {
+        if(LevelManager.instance!=null)
+        {
+            Color color = LevelManager.instance.targetColor;
+            image.color = new Color(color.r, color.g, color.b, 1);
+        }
         animator.SetBool(APPEAR, false);
     }
 }

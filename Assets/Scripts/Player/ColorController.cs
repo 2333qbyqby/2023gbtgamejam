@@ -36,8 +36,10 @@ public class ColorController : MonoBehaviour
             AudioManager.instance.PlaySound(0);//触发吸收音效
             LevelUI.instance.SetCurRGB();
             LevelUI.instance.SetRemainText(maxColorNum-colors.Count);//设置剩余吸收数
+            LevelUI.instance.UpdateAllVisual();
             //判断是否通关
             LevelManager.instance.CheckifPassed();
+            
         }
     }
 
